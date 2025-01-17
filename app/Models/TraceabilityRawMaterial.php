@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class TraceabilityRawMaterial extends Model
 {
     use SoftDeletes;
+    protected $primaryKey = 'rm_id';
+    public $incrementing = false;
     protected $fillable = [
         'rm_id',
         'model_name',

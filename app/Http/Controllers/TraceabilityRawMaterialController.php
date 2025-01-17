@@ -38,4 +38,14 @@ class TraceabilityRawMaterialController extends Controller
         $data = TraceabilityRawMaterial::all();
         return response()->json($data, 200);
     }
+
+    public function detailRawMaterial($id)
+    {
+        $data = TraceabilityRawMaterial::find($id);
+        if ($data) {
+            return response()->json($data, 200);
+        } else {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
+    }
 }

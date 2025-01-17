@@ -9,3 +9,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('list-raw-material', [TraceabilityRawMaterialController::class, 'listRawMaterial']);
+Route::get('detail-raw-material/{id}', [TraceabilityRawMaterialController::class, 'detailRawMaterial']);
