@@ -94,7 +94,7 @@
 <body onload="window.print();">
     <div class="row justify-content-center g-0">
         @foreach ($data as $label)
-            <div class="col-12 text-center mb-5" style="padding-left: 1px; padding-right: 1px;">
+            <div class="col-12 text-center mb-1" style="padding-left: 1px; padding-right: 1px;">
                 <div class="label-card mb-3" style="margin: 0;">
                     <table class="table table-bordered">
                         <tbody>
