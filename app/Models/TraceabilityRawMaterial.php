@@ -14,9 +14,11 @@ class TraceabilityRawMaterial extends Model
         'rm_id',
         'model_name',
         'item_code',
-        'po_no',
-        'cus_info_1',
-        'cus_info_2',
+        'invoice_no',
+        'prod_date',
+        'batch_no',
         'qty',
+        'furnace_no',
+        'total_pallet',
     ];
 }

@@ -27,7 +27,9 @@ class TraceabilityRawMaterialController extends Controller
     public function qrcodeGenerate(Request $request)
     {
         $rmIdParam = $request->query('rmid');
-
+        if (empty($rmIdParam)) {
+            return redirect()->route('list.data')->with('error', 'Invalid parameter');
+        }
         $data = TraceabilityRawMaterial::whereIn('rm_id', explode(',', $rmIdParam))->get();
 
         return view('qrcode', compact('data'));
@@ -47,5 +49,11 @@ class TraceabilityRawMaterialController extends Controller
         } else {
             return response()->json(['message' => 'Data not found'], 404);
         }
+    }
+
+    public function listData()
+    {
+        $data = TraceabilityRawMaterial::all();
+        return view('list', compact('data'));
     }
 }

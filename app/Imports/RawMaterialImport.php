@@ -17,24 +17,28 @@ class RawMaterialImport implements ToModel
      */
     public function model(array $row)
     {
+        if ($row[0] == 'Invoice No' || $row[0] == 'Product') {
+            return null;
+        }
         $dataCount = TraceabilityRawMaterial::withTrashed()->count();
-        $year = date('y');
-        $month = date('m');
-        $rm_id = 'RM' . $year . $month . str_pad($dataCount + 1, 5, '0', STR_PAD_LEFT);
+        $year = date('Y');
+        $rm_id = 'RM' . $year . str_pad($dataCount + 1, 8, '0', STR_PAD_LEFT);
 
         $this->rmIds[] = $rm_id;
 
         return new TraceabilityRawMaterial([
             'rm_id' => $rm_id,
-            'model_name' => $row[0],
-            'item_code' => $row[1],
-            'po_no' => $row[2],
-            'cus_info_1' => $row[3],
-            'cus_info_2' => $row[4],
-            'qty' => $row[5],
+            'invoice_no' => $row[0],
+            'model_name' => $row[1],
+            'qty' => $row[2],
+            'prod_date' => $row[3],
+            'furnace_no' => $row[4],
+            'batch_no' => $row[5],
+            'total_pallet' => $row[6],
+            'item_code' => $row[7] ?? null,
         ]);
     }
-    
+
     public function getRmIds()
     {
         return $this->rmIds;

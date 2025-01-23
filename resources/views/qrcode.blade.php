@@ -29,13 +29,14 @@
         }
 
         .header-title {
-            font-size: 24px;
+            font-size: 35px;
             font-weight: bold;
             margin: 5px 0;
         }
 
         .header-section {
-            font-weight: bold;
+            font-weight: bold !important;
+            font-size: 25px !important;
         }
 
         td {
@@ -58,11 +59,8 @@
 
         @media print {
             body {
-                margin-left: 20px !important;
-                margin-top: 20px !important;
-                margin-bottom: 20px !important;
+                margin: 0;
                 padding: 0;
-                font-size: 12px;
             }
 
             .container {
@@ -70,7 +68,7 @@
             }
 
             .label-card {
-                width: 95%;
+                width: 100%;
                 page-break-inside: avoid;
             }
 
@@ -80,13 +78,14 @@
                 padding: 0;
             }
 
-            tr, td {
+            tr,
+            td {
                 padding: 0 !important;
                 margin: 0 !important;
             }
 
             @page {
-                margin: 0;
+                margin: 60px 20px 20px 20px;
             }
         }
     </style>
@@ -95,42 +94,72 @@
 <body onload="window.print();">
     <div class="row justify-content-center g-0">
         @foreach ($data as $label)
-            <div class="col-6 text-center mb-1" style="padding-left: 1px; padding-right: 1px;">
+            <div class="col-12 text-center mb-5" style="padding-left: 1px; padding-right: 1px;">
                 <div class="label-card mb-3" style="margin: 0;">
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
-                                <td colspan="3">
+                                <td colspan="5">
+                                    <div class="header-title" style="font-size: 20px !important">TOPY PALINGDA
+                                        MANUFACTURING INDONESIA</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
                                     <div class="header-title">RAW MATERIAL TAG</div>
                                 </td>
                             </tr>
                             <tr>
-                                <td rowspan="2" class="text-center">
-                                    <div class="qr-container mt-2">
-                                        <div class="qr-code" id="qrcode-{{ $loop->index }}"></div>
-                                        <div class="mt-2 header-section">{{ $label->rm_id }}</div>
+                                <td colspan="1">
+                                    <div class="header-title" style="font-size: 20px !important; margin-top: 20px">Item
                                     </div>
                                 </td>
-                                <th>Model</th>
-                                <td>{{ $label->model_name }}</td>
-                            </tr>
-                            <tr>
-                                <th>PO/Invoice No</th>
-                                <td>{{ $label->po_no }}</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="header-section mt-1">Qty/pallet</div>
+                                <td colspan="4">
+                                    <div class="header-title">{{ $label->model_name }}</div>
                                 </td>
-                                <th>Batch No</th>
-                                <td>{{ $label->cus_info_1 }}</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <div class="header-section mt-1">{{ $label->qty }}</div>
+                                <td rowspan="5" colspan="2" class="text-center">
+                                    <div class="qr-container mt-2">
+                                        <div class="qr-code mt-2" id="qrcode-{{ $loop->index }}"></div>
+                                        <div class="mt-3 header-section" style="font-size: 20px !important">
+                                            {{ $label->rm_id }}</div>
+                                        <br>
+                                    </div>
                                 </td>
-                                <th>Prod No</th>
-                                <td>{{ $label->cus_info_2 }}</td>
+                                <th colspan="1" style="font-size: 18px">Qty/Pallet</th>
+                                <td colspan="3">
+                                    <div class="header-section mt-2 ms-1" style="text-align:left !important;">
+                                        {{ $label->qty }}</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="1" style="font-size: 18px">Invoice No</th>
+                                <td colspan="3">
+                                    <div class="header-section mt-2 ms-1" style="text-align:left !important">
+                                        {{ $label->invoice_no }}</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="1" style="font-size: 18px">Prod Date</th>
+                                <td colspan="3">
+                                    <div class="header-section mt-2 ms-1" style="text-align:left !important">
+                                        {{ $label->prod_date }}</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="1" style="font-size: 18px">Furnace No</th>
+                                <td colspan="3">
+                                    <div class="header-section mt-2 ms-1" style="text-align:left !important">
+                                        {{ $label->furnace_no }}</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="1" style="font-size: 18px">Batch No</th>
+                                <td colspan="3">
+                                    <div class="header-section mt-2 ms-1" style="text-align:left !important">
+                                        {{ $label->batch_no }}</div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -147,13 +176,19 @@
             const qrCodeElement = document.getElementById(`qrcode-${index}`);
             const qrCode = new QRCode(qrCodeElement, {
                 text: label.rm_id,
-                width: 100,
-                height: 100,
+                width: 220,
+                height: 220,
                 colorDark: '#000000',
                 colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.H
             });
         });
+
+        window.onbeforeprint = function(event) {
+            window.addEventListener('afterprint', function() {
+                window.history.back();
+            });
+        };
     </script>
 </body>
 
