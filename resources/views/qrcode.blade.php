@@ -110,17 +110,13 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="1">
-                                    <div class="header-title" style="font-size: 20px !important; margin-top: 20px">Item
-                                    </div>
-                                </td>
-                                <td colspan="4">
-                                    <div class="header-title">{{ $label->model_name }}</div>
+                                <td colspan="5">
+                                    <div class="header-title" style="font-size: 26px !important">{{ $label->model_name }}</div>
                                 </td>
                             </tr>
                             <tr>
                                 <td rowspan="5" colspan="2" class="text-center">
-                                    <div class="qr-container mt-2">
+                                    <div class="qr-container mt-2 p-0">
                                         <div class="qr-code mt-2" id="qrcode-{{ $loop->index }}"></div>
                                         <div class="mt-3 header-section" style="font-size: 20px !important">
                                             {{ $label->rm_id }}</div>

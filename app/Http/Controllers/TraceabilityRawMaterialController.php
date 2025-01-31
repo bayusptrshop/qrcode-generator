@@ -51,9 +51,24 @@ class TraceabilityRawMaterialController extends Controller
         }
     }
 
-    public function listData()
+    public function listData(Request $request)
     {
         $data = TraceabilityRawMaterial::all();
-        return view('list', compact('data'));
+        $invoices = $data->pluck('invoice_no')->unique();
+        $items = $data->pluck('model_name')->unique();
+        $created_at = $data->pluck('created_at')->unique();
+        $data = TraceabilityRawMaterial::query();
+        if ($request->has('invoice_no') && $request->invoice_no) {
+            $data = $data->where('invoice_no', $request->invoice_no);
+        }
+        if ($request->has('item_name') && $request->item_name) {
+            $data = $data->where('model_name', $request->item_name);
+        }
+        if ($request->has('created_at') && $request->created_at) {
+            $data = $data->whereDate('created_at', $request->created_at);
+        }
+
+        $data = $data->get();
+        return view('list', compact('data', 'invoices', 'items', 'created_at'));
     }
 }

@@ -13,6 +13,34 @@
     @include('layouts.navbar')
     <div class="p-4">
         <h2 class="mb-4">Data Raw Material</h2>
+        <div class="row align-items-center mb-5">
+            <div class="col-auto">
+                <label for="invoice_no">Invoice No</label>
+                <select id="invoice_no" name="invoice_no" class="form-select">
+                    <option value="">All</option>
+                    @foreach ($invoices as $invoice)
+                        <option value="{{ $invoice }}" {{ request('invoice_no') == $invoice ? 'selected' : '' }}>{{ $invoice }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-auto">
+                <label for="item_name">Item Name</label>
+                <select id="item_name" name="item_name" class="form-select">
+                    <option value="">All</option>
+                    @foreach ($items as $item)
+                        <option value="{{ $item }}" {{ request('item_name') == $item ? 'selected' : '' }}>{{ $item }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-auto">
+                <label for="created_at">Created At</label>
+                <input type="date" value="{{ request('created_at') ?? '' }}" id="created_at" name="created_at" class="form-control">
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-danger mt-4" onclick="resetButton()">Reset</button>
+                <button type="button" class="btn btn-primary mt-4" onclick="filterButton()">Filter</button>
+            </div>
+        </div>
         <button type="button" class="btn btn-primary mb-3" id="printButton">Print</button>
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
@@ -84,16 +112,31 @@
                 window.location.href = redirectUrl;
             });
 
-            const rows = document.querySelectorAll('.clickable-row');
+            const tbody = document.querySelector('#example tbody');
 
-            rows.forEach(row => {
-                row.addEventListener('click', function() {
+            tbody.addEventListener('click', function(event) {
+                const row = event.target.closest('.clickable-row');
+                if (row) {
                     const checkbox = row.querySelector('.rm-checkbox');
                     checkbox.checked = !checkbox.checked;
                     updateButtonStatus();
-                });
+                }
             });
         });
+
+        function filterButton() {
+            const invoiceNo = document.getElementById('invoice_no').value;
+            const itemName = document.getElementById('item_name').value;
+            const createdAt = document.getElementById('created_at').value;
+            const url = "{{ route('list.data') }}";
+            const redirectUrl = url + '?invoice_no=' + invoiceNo + '&item_name=' + itemName + '&created_at=' + createdAt;
+            window.location.href = redirectUrl;
+        }
+
+        function resetButton() {
+            const url = "{{ route('list.data') }}";
+            window.location.href = url;
+        }
     </script>
 </body>
 
