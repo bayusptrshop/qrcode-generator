@@ -6,7 +6,7 @@ use App\Http\Middleware\AuthLogin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 Route::middleware(AuthLogin::class)->group(function () {

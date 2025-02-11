@@ -6,6 +6,49 @@
     .dataTables_wrapper {
         overflow-x: auto;
     }
+    body {
+            margin-top: 20px;
+            background: #FFF5EE;
+        }
+
+        .card {
+            box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+        }
+
+        .avatar.sm {
+            width: 2.25rem;
+            height: 2.25rem;
+            font-size: .818125rem;
+        }
+
+        .table-nowrap .table td,
+        .table-nowrap .table th {
+            white-space: nowrap;
+        }
+
+        .table>:not(caption)>*>* {
+            padding: 0.75rem 1.25rem;
+            border-bottom-width: 1px;
+        }
+
+        table th {
+            font-weight: 600;
+            background-color: #eeecfd !important;
+        }
+
+        .fa-arrow-up {
+            color: #00CED1;
+        }
+
+        .fa-arrow-down {
+            color:rgb(255, 238, 0);
+        }
+        body {
+    background-color: #ADD8E6; /* LightBlue */
+}
+
+
+
 </style>
 </head>
 
