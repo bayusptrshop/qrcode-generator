@@ -5,6 +5,10 @@ use App\Http\Controllers\TraceabilityRawMaterialController;
 use App\Http\Middleware\AuthLogin;
 use Illuminate\Support\Facades\Route;
 
+// Route::get('/{any}', function () {
+//     return view('welcome');
+// })->where('any', '.*');
+
 Route::get('/', function () {
     return view('login');
 });
@@ -20,3 +24,6 @@ Route::get('login', function () {
 })->name('login');
 Route::post('login', [AuthController::class, 'login'])->name('login.process');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/welcome', function () {
+    return view('welcome');
+});

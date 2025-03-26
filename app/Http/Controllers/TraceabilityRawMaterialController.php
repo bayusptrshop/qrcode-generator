@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\RawMaterialImport;
 use App\Models\TraceabilityRawMaterial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TraceabilityRawMaterialController extends Controller
@@ -31,7 +32,9 @@ class TraceabilityRawMaterialController extends Controller
             return redirect()->route('list.data')->with('error', 'Invalid parameter');
         }
         $data = TraceabilityRawMaterial::whereIn('rm_id', explode(',', $rmIdParam))->get();
-
+        if (Auth::user()->user_code == 'topy_idn01' || Auth::user()->user_code == 'topy_idn02') {
+            return view('qrcode-a7', compact('data'));
+        }
         return view('qrcode', compact('data'));
     }
 
